@@ -1,0 +1,18 @@
+{
+  "patientName": "String Some name",
+  "patientId": "String some Id",
+  "eanabled": true,
+  "medicalRecord": [
+    {
+      "medicalRecordId": "String some Id",
+      "uploadedBy": "String uploader Id",
+      "dateUploaded": "String ISO Date",
+      "consentTo": [
+        "String some Id or some public Key",
+        "String some Id or some public Key",
+        "String some Id or some public Key",
+        "String some Id or some public Key"
+      ]
+    }
+  ]
+}
