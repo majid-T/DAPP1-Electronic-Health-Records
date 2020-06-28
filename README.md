@@ -59,8 +59,41 @@ Functionalities will be exposed through REST Api , therefore bringing potential 
 
 ### Functions
 
-| Function  | .... | Description |
-| --------- | ---- | ----------- |
-| read data | ...  | ..          |
+| Function  | Description                           |
+| --------- | ------------------------------------- |
+| read data | to Read some state of patient records |
+
+#### Functions implementation - Psuedo-Code
+
+| Function                                      | Function code & params                        | Notes        |
+| --------------------------------------------- | --------------------------------------------- | ------------ |
+| check for consent for user,patient and record | haveConsent(patientId,userId,medicalRecordId) | returns bool |
 
 ### Roles
+
+| Role             | Description                                                               | access and capabilities             |
+| ---------------- | ------------------------------------------------------------------------- | ----------------------------------- |
+| Patient          | Patient who is an individual in system                                    | register - provide consent to users |
+| Health Entity    | Any entity on health system who can upload data or may need acces to data | upload data -read data              |
+| 3rd Party viewer | Any entity who may need only read access to data                          | read data                           |
+| System Admin     | Will handle system internal states                                        | will modify BC & BD and create ids  |
+
+| Transition & Functions  | Called by     | Description |
+| ----------------------- | ------------- | ----------- |
+| register user           | Patient       | ..          |
+| add data                | Health Entity | ..          |
+| add data to BC & DB     | System Admin  | ..          |
+| modify consent          | Patient       | ..          |
+| modify in BC & DB       | System Admin  | ..          |
+| delete user             | Patient       | ..          |
+| disable user in BC & DB | System Admin  | ..          |
+| F:read data             | all Users     | ..          |
+
+## Notes on running APP:
+
+- Fronetend code is in frontend folder with instruction on how to run in separate READ.ME file. [FRONTEND](./frontend)
+- Backend code including chaincode is in backend folder with instruction on how to run in separate READ.ME file [BACKEND](./frontend)
+
+### HOW TO RUN PROJECT:
+
+TBD
