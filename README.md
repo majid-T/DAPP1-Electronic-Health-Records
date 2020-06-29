@@ -57,6 +57,13 @@ Functionalities will be exposed through REST Api , therefore bringing potential 
 | read data      | patientId, medicalRecordId         | string(medical record data) | read mecical record        |
 | delete user    | patientId                          | bool (delete registry)      | disable user               |
 
+=== exposed REST API endpoints details:
+
+| TBD | TBD | TBD | TBD |
+| --- | --- | --- | --- |
+| TBD | TBD | TBD | TBD |
+| TBD | TBD | TBD | TBD |
+
 ### Transactions
 
 Checked functions will change the state of blockchain and will cause a transaction on blockchain
@@ -73,7 +80,11 @@ Checked functions will change the state of blockchain and will cause a transacti
 
 ### Participants
 
-TBD
+System participates in phase I:
+
+- Patients
+- Health data providers (Doctors,Hospitals, Health centers)
+- 3rd Party data viewers (Family members, Government institutions, Research centers)
 
 ## System overview Ver:0.1.0
 
