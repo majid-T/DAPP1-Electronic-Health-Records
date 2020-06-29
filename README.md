@@ -47,25 +47,24 @@ Functionalities will be exposed through REST Api , therefore bringing potential 
 
 ### Contracts
 
-TODO:Change this later;
-| Function | Function code & params | Notes |
-| ----------------------- | ------------------------------------------------- | ----- |
-| register user | addUser(patientName,patientId) | .. |
-| Test |
-| add data | addMedRecord(patientId,medicalRecObj) | .. |
-| add data to BC & DB | await ctx.stub.putState(patientId, medicalRecObj) | .. |
-| modify consent | modifyConsent(patientId,medicalRecordId,consetTo) | .. |
-| modify in BC & DB | await ctx.stub.putState(patientId, modObj) | .. |
-| delete user | deleteUser(patientId) | .. |
-| disable user in BC & DB | await ctx.stub.putState(patientId, modObj) | .. |
+=== MedicalRecord ===
+
+| Function       | Input                              | output                      | Description                |
+| -------------- | ---------------------------------- | --------------------------- | -------------------------- |
+| register user  | patientName,patientId              | bool (success registry)     | Create new patient record  |
+| add data       | patientId,medicalRecObj            | string (medicalRecordId)    | add medical record data    |
+| modify consent | patientId,medicalRecordId,consetTo | bool (success modification) | add/remove consent to user |
+| read data      | patientId, medicalRecordId         | string(medical record data) | read mecical record        |
+| delete user    | patientId                          | bool (delete registry)      | disable user               |
 
 ### Transactions
 
-TBD
+Checked functions will change the state of blockchain and will cause a transaction on blockchain
 
-### Business Networks
-
-TBD
+- [x] register user
+- [x] add data
+- [x] modify consent
+- [x] delete user
 
 ### Business Networks
 
@@ -150,7 +149,7 @@ TBD
 ## Notes on running APP:
 
 - Fronetend code is in frontend folder with instruction on how to run in separate READ.ME file. [FRONTEND](./frontend)
-- Backend code including chaincode is in backend folder with instruction on how to run in separate READ.ME file [BACKEND](./frontend)
+- Backend code including chaincode is in backend folder with instruction on how to run in separate READ.ME file [BACKEND](./backend)
 
 ### HOW TO RUN PROJECT:
 
