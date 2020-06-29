@@ -7,6 +7,7 @@
       "medicalRecordId": "String some Id",
       "uploadedBy": "String uploader Id",
       "dateUploaded": "String ISO Date",
+      "medicalRecordData": "String anything",
       "consentTo": [
         "String some Id or some public Key",
         "String some Id or some public Key",

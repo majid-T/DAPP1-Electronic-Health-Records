@@ -17,7 +17,65 @@ This solution will use Hyperledger Fabric Blockchain to be as a gateway to provi
 Actual records are not being stored and only id of each record will be stored on-chain alongside information on who may or may not access this information.
 Functionalities will be exposed through REST Api , therefore bringing potential of all kind of systems, apps and architecture to be build on top of the system.
 
-## System overview V - 0.1.0
+## Modeling Ver:0.1.0
+
+### Assets
+
+#### Pateint Medical Record
+
+```json
+{
+  "patientName": "String Some name",
+  "patientId": "String some Id",
+  "eanabled": true,
+  "medicalRecord": [
+    {
+      "medicalRecordId": "String some Id",
+      "uploadedBy": "String uploader Id",
+      "dateUploaded": "String ISO Date",
+      "medicalRecordData": "String anything",
+      "consentTo": [
+        "String some Id or some public Key",
+        "String some Id or some public Key",
+        "String some Id or some public Key",
+        "String some Id or some public Key"
+      ]
+    }
+  ]
+}
+```
+
+### Contracts
+
+TODO:Change this later;
+| Function | Function code & params | Notes |
+| ----------------------- | ------------------------------------------------- | ----- |
+| register user | addUser(patientName,patientId) | .. |
+| Test |
+| add data | addMedRecord(patientId,medicalRecObj) | .. |
+| add data to BC & DB | await ctx.stub.putState(patientId, medicalRecObj) | .. |
+| modify consent | modifyConsent(patientId,medicalRecordId,consetTo) | .. |
+| modify in BC & DB | await ctx.stub.putState(patientId, modObj) | .. |
+| delete user | deleteUser(patientId) | .. |
+| disable user in BC & DB | await ctx.stub.putState(patientId, modObj) | .. |
+
+### Transactions
+
+TBD
+
+### Business Networks
+
+TBD
+
+### Business Networks
+
+TBD
+
+### Participants
+
+TBD
+
+## System overview Ver:0.1.0
 
 ### States
 
