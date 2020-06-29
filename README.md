@@ -64,11 +64,12 @@ Checked functions will change the state of blockchain and will cause a transacti
 - [x] register user
 - [x] add data
 - [x] modify consent
+- [ ] read data
 - [x] delete user
 
-### Business Networks
+### Business Networks - Blockchain architecture
 
-TBD
+![Blockchain Architecture](./documents/images/arch.jpeg)
 
 ### Participants
 
