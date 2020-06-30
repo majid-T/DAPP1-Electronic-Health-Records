@@ -59,10 +59,13 @@ Functionalities will be exposed through REST Api , therefore bringing potential 
 
 === exposed REST API endpoints details:
 
-| TBD | TBD | TBD | TBD |
-| --- | --- | --- | --- |
-| TBD | TBD | TBD | TBD |
-| TBD | TBD | TBD | TBD |
+| HTTP Method | path                | input                                            | output                       |
+| ----------- | ------------------- | ------------------------------------------------ | ---------------------------- |
+| POST        | /register-user      | patientName - patientId                          | success / fail               |
+| POST        | /add-record         | patientId - medicalRecObj -identity              | medical record ID / fail     |
+| POST        | /modify-consent     | patientId - medicalRecordId - consetTo -identity | success / fail               |
+| GET         | /get-medical-record | patientId - medicalRecordId -identity            | Object medical record / fail |
+| DELETE      | /delete-user        | PatientId - identity                             | success / fail               |
 
 ### Transactions
 
