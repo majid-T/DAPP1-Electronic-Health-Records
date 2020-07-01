@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-'use strict';
+"use strict";
 
-const FabCar = require('./lib/fabcar');
+const Medical = require("./lib/medicl");
 
-module.exports.FabCar = FabCar;
-module.exports.contracts = [ FabCar ];
+module.exports.Medical = Medical;
+module.exports.contracts = [Medical];
