@@ -60,14 +60,16 @@ a {
 }
 
 .participantName {
-  background-color: seagreen;
+  background-color: rgb(46, 139, 87, 1);
   border-radius: 10px;
   text-align: center;
+  display: block;
+  border: solid;
 }
 
-.container {
+/* .container {
   display: grid;
-}
+} */
 
 .recordCard {
   border: 1px solid white;
@@ -77,6 +79,12 @@ a {
   height: 450px;
   float: left;
   border-radius: 10px;
+  background-color: rgb(46, 139, 87, 0.5);
+}
+
+.recordCard:hover {
+  scale: 100%;
+  background-color: rgba(46, 139, 86, 1);
 }
 
 .recordCard button,
