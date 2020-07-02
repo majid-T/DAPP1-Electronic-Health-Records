@@ -1,0 +1,90 @@
+body {
+  background-color: cadetblue;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(7px + 2vmin);
+  /* color: white; */
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.participantsBar {
+  float: left;
+  min-height: 100vh;
+  width: 15%;
+  border: white 1px solid;
+  border-radius: 5px;
+}
+
+.mainPanel {
+  float: left;
+  min-height: 100vh;
+  width: 85%;
+  padding: 3%;
+}
+
+a {
+  text-decoration: none;
+}
+
+.participantsLabel {
+  display: block;
+  padding: 10px;
+  margin: 10%;
+  background-color: yellowgreen;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px;
+  color: orange;
+}
+
+.list {
+  display: inline-block;
+}
+
+.participantName {
+  background-color: seagreen;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.container {
+  display: grid;
+}
+
+.recordCard {
+  border: 1px solid white;
+  padding: 10px;
+  margin: 10px;
+  width: 30%;
+  height: 450px;
+  float: left;
+  border-radius: 10px;
+}
+
+.recordCard button,
+.recordCard input {
+  width: 30%;
+}
+
+button,
+input {
+  border-radius: 5px;
+}
