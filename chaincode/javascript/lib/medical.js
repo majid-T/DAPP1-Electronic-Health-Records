@@ -155,7 +155,7 @@ class Medical extends Contract {
             uploadedBy: uploadedBy,
             dateUploaded: now.toFormat("YYYY/MM/DD PP HH:MI"),
             medicalRecordData: medicalRecordData,
-            consentTo: consentTo.push(consentTo),
+            consentTo: [uploadedBy],
         };
 
         record.medicalRecord.push(medicalRecord);
