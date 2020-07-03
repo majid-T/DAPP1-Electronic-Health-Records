@@ -12,7 +12,6 @@ require("date-utils");
 
 class Medical extends Contract {
     patientId = "0";
-    medicalId = "0";
 
     async initLedger(ctx) {
         console.info("============= START : Initialize Ledger ===========");
@@ -50,27 +49,23 @@ class Medical extends Contract {
     async createPatientRecord(ctx, patientName) {
         //check the role of the current user
 
-        const record = {
-            patientName: patientName,
-            patientId: this.patientId,
-            enabled: true,
-            medicalRecord: [
-                {
-                    medicalRecordId: this.medicalId,
-                    uploadedBy: "",
-                    dateUploaded: "",
-                    medicalRecordData: "",
-                    consentTo: [],
-                },
-            ],
-        };
-        await ctx.stub.putState(
-            this.patientId,
-            Buffer.from(JSON.stringify(record))
-        );
-        this.patientId = this.patientId + 1;
-        this.medicalId = this.medicalId + 1;
-        return true;
+        const recordAsBytes = await ctx.stub.getState(this.patientId);
+        if (!recordAsBytes || recordAsBytes.length === 0) {
+            const record = {
+                patientName: patientName,
+                patientId: this.patientId,
+                enabled: true,
+                medicalRecord: [],
+            };
+            await ctx.stub.putState(
+                this.patientId,
+                Buffer.from(JSON.stringify(record))
+            );
+            this.patientId = this.patientId + 1;
+            return true;
+        } else {
+            throw new Error(`Record with id ${this.patientId} already exist.`);
+        }
     }
 
     //add doctors under consentTo
@@ -83,7 +78,13 @@ class Medical extends Contract {
      * @param {string} medicalRecordId
     
      */
-    async providingConsent(ctx, patientRecordId, targetName, medicalRecordId) {
+    async modifyConsent(
+        ctx,
+        patientRecordId,
+        targetName,
+        medicalRecordId,
+        flag
+    ) {
         //extracting the caller record
         const recordAsBytes = await ctx.stub.getState(patientRecordId);
         if (!recordAsBytes || recordAsBytes.length === 0) {
@@ -92,57 +93,44 @@ class Medical extends Contract {
         //converting into string
         const record = JSON.parse(recordAsBytes.toString());
 
-        //adding target into caller's consentTo
-        const permission = record.medicalRecord[
-            medicalRecordId
-        ].consentTo.filter((doc) => {
-            return doc.id === targetName;
-        });
-        if (!permission || permission.length === 0) {
-            record.medicalRecord[medicalRecordId].consentTo.push(targetName);
-        }
+        if (flag === true) {
+            //adding target into caller's consentTo
+            const permission = record.medicalRecord[
+                medicalRecordId
+            ].consentTo.filter((doc) => {
+                return doc.id === targetName;
+            });
 
-        await ctx.stub.putState(
-            patientRecordId,
-            Buffer.from(JSON.stringify(record))
-        );
+            if (!permission || permission.length === 0) {
+                record.medicalRecord[medicalRecordId].consentTo.push(
+                    targetName
+                );
+            }
+
+            await ctx.stub.putState(
+                patientRecordId,
+                Buffer.from(JSON.stringify(record))
+            );
+        } else {
+            const permission = record.medicalRecord[
+                medicalRecordId
+            ].consentTo.filter((doc) => {
+                return doc.id != targetName;
+            });
+            record.medicalRecord[medicalRecordId].consentTo = permission;
+
+            await ctx.stub.putState(
+                patientRecordId,
+                Buffer.from(JSON.stringify(record))
+            );
+        }
         return true;
     }
-    /**
-     *
-     * @param {Context} ctx
-     * @param {string} patientRecordId
-     * @param {string} targetName
-     * @param {string} medicalRecordId
-    
-     */
-    async removingConsent(ctx, patientRecordId, targetName, medicalRecordId) {
-        //extracting the caller record
-        const recordAsBytes = await ctx.stub.getState(patientRecordId);
-        if (!recordAsBytes || recordAsBytes.length === 0) {
-            throw new Error(`${patientRecordId} does not exist`);
-        }
-        //converting into string
-        const record = JSON.parse(recordAsBytes.toString());
 
-        //adding target into caller's consentTo
-        const permission = record.medicalRecord[
-            medicalRecordId
-        ].consentTo.filter((doc) => {
-            return doc.id != targetName;
-        });
-        record.medicalRecord[medicalRecordId].consentTo = permission;
-
-        await ctx.stub.putState(
-            patientRecordId,
-            Buffer.from(JSON.stringify(record))
-        );
-        return true;
-    }
     /**
      * @param {Context} ctx
      * @param {string} patientId
-     * @param {string} medicalInfo
+     * @param {string} medicalRecordObj
      */
     async writePatientMedicalInfo(ctx, patientId, medicalRecordObj) {
         //extract the patient record
@@ -160,30 +148,34 @@ class Medical extends Contract {
         //converting into string
         const record = JSON.parse(recordAsBytes.toString());
 
-        //checking for permission
-        // const permission = record.medicalRecord[
-        //     medicalRecordId
-        // ].consentTo.filter((doc) => {
-        //     return doc.id === targetId;
-        // });
-
-        // if (!permission || permission.length === 0) {
-        //     throw new Error(`${caller} is not allowed to modify`);
-        // }
-
         const now = new Date();
         // const newMedicalRecord = record.medicalRecord[medicalRecordId];
-        record.medicalRecord[medicalRecordId].uploadedBy = uploadedBy;
-        record.medicalRecord[medicalRecordId].dateUploaded = now.toFormat(
-            "YYYY/MM/DD PP HH:MI"
-        );
-        record.medicalRecord[
-            medicalRecordId
-        ].medicalRecordData = medicalRecordData;
+        const medicalRecord = {
+            medicalRecordId: medicalRecordId,
+            uploadedBy: uploadedBy,
+            dateUploaded: now.toFormat("YYYY/MM/DD PP HH:MI"),
+            medicalRecordData: medicalRecordData,
+            consentTo: consentTo.push(consentTo),
+        };
 
-        await ctx.stub.putState(patientId, Buffer.from(JSON.stringify(record)));
+        record.medicalRecord.push(medicalRecord);
+        // record.medicalRecord[medicalRecordId].uploadedBy = uploadedBy;
+        // record.medicalRecord[medicalRecordId].dateUploaded = now.toFormat(
+        //     "YYYY/MM/DD PP HH:MI"
+        // );
+        // record.medicalRecord[
+        //     medicalRecordId
+        // ].medicalRecordData = medicalRecordData;
+        try {
+            await ctx.stub.putState(
+                patientId,
+                Buffer.from(JSON.stringify(record))
+            );
 
-        return true;
+            return medicalRecordId;
+        } catch (error) {
+            return error;
+        }
     }
 
     /**
