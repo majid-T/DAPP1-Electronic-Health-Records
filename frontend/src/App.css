@@ -79,6 +79,7 @@ a {
   float: left;
   border-radius: 10px;
   background-color: rgb(46, 139, 87, 0.5);
+  font-size: 0.9em;
 }
 
 .recordCard:hover {
@@ -86,14 +87,18 @@ a {
   background-color: rgba(46, 139, 86, 1);
 }
 
-.recordCard button,
+/* .recordCard button,
 .recordCard input {
   width: 30%;
-}
+} */
 
 button,
 input {
   border-radius: 5px;
+}
+
+.removeButton {
+  background-color: tomato;
 }
 
 /* ribbon  */

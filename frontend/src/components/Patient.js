@@ -18,7 +18,7 @@ const Patient = (props) => {
       dateUploaded: "01/01/01",
       medicalRecordData:
         "Deserunt adipisicing labore ut incididunt.Exercitation eu nostrud ad cupidatat deserunt in excepteur sint proident laboris cupidatat.",
-      consentTo: ["DoctorA"],
+      consentTo: [],
     },
     {
       medicalRecordId: "MA-1003",

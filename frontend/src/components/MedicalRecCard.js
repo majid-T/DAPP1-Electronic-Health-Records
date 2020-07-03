@@ -14,9 +14,12 @@
 // ];
 
 import React, { useState, useEffect } from "react";
+import AccessItem from "./AccessItem";
 
 const MedicalRecCard = (props) => {
   const record = props.record;
+  const consentList = record.consentTo;
+
   const [loading, setLoading] = useState(false);
   useEffect(() => {}, [loading]);
 
@@ -31,10 +34,14 @@ const MedicalRecCard = (props) => {
       </div>
       <br />
       <div>
-        Access List:
-        {record.consentTo.map((item, key) => {
-          return <p>{item}</p>;
-        })}
+        Access List: {consentList.lenght}
+        {consentList.lenght != 0 ? (
+          record.consentTo.map((item, key) => {
+            return <AccessItem name={item} />;
+          })
+        ) : (
+          <p>No consent is given for this record</p>
+        )}
       </div>
     </div>
   );
