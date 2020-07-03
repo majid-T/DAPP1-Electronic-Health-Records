@@ -49,13 +49,13 @@ Functionalities will be exposed through REST Api , therefore bringing potential 
 
 === MedicalRecord ===
 
-| Function       | Input                              | output                      | Description                |
-| -------------- | ---------------------------------- | --------------------------- | -------------------------- |
-| register user  | patientName,patientId              | bool (success registry)     | Create new patient record  |
-| add data       | patientId,medicalRecObj            | string (medicalRecordId)    | add medical record data    |
-| modify consent | patientId,medicalRecordId,consetTo | bool (success modification) | add/remove consent to user |
-| read data      | patientId, medicalRecordId         | string(medical record data) | read mecical record        |
-| delete user    | patientId                          | bool (delete registry)      | disable user               |
+| Function       | Input                                     | output                      | Description                |
+| -------------- | ----------------------------------------- | --------------------------- | -------------------------- |
+| register user  | patientName,patientId                     | bool (success registry)     | Create new patient record  |
+| add data       | patientId,medicalRecObj                   | string (medicalRecordId)    | add medical record data    |
+| modify consent | patientId,medicalRecordId,consetTo,status | bool (success modification) | add/remove consent to user |
+| read data      | patientId, medicalRecordId                | string(medical record data) | read mecical record        |
+| delete user    | patientId                                 | bool (delete registry)      | disable user               |
 
 === exposed REST API endpoints details:
 
@@ -119,15 +119,15 @@ System participates in phase I:
 
 #### Transition implementation - Psuedo-Code
 
-| Transition              | Function code & params                            | Notes |
-| ----------------------- | ------------------------------------------------- | ----- |
-| register user           | addUser(patientName,patientId)                    | ..    |
-| add data                | addMedRecord(patientId,medicalRecObj)             | ..    |
-| add data to BC & DB     | await ctx.stub.putState(patientId, medicalRecObj) | ..    |
-| modify consent          | modifyConsent(patientId,medicalRecordId,consetTo) | ..    |
-| modify in BC & DB       | await ctx.stub.putState(patientId, modObj)        | ..    |
-| delete user             | deleteUser(patientId)                             | ..    |
-| disable user in BC & DB | await ctx.stub.putState(patientId, modObj)        | ..    |
+| Transition              | Function code & params                                   | Notes |
+| ----------------------- | -------------------------------------------------------- | ----- |
+| register user           | addUser(patientName,patientId)                           | ..    |
+| add data                | addMedRecord(patientId,medicalRecObj)                    | ..    |
+| add data to BC & DB     | await ctx.stub.putState(patientId, medicalRecObj)        | ..    |
+| modify consent          | modifyConsent(patientId,medicalRecordId,consetTo,status) | ..    |
+| modify in BC & DB       | await ctx.stub.putState(patientId, modObj)               | ..    |
+| delete user             | deleteUser(patientId)                                    | ..    |
+| disable user in BC & DB | await ctx.stub.putState(patientId, modObj)               | ..    |
 
 ### Functions
 
