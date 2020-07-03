@@ -42,7 +42,7 @@ const Patient = (props) => {
   return (
     <div>
       <div className="container">
-        <span className="participantName">{props.patientName}</span>
+        <span className="ribbon">{props.patientName}</span>
 
         {loading ? (
           <p>Loading...</p>

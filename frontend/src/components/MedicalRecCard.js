@@ -22,11 +22,20 @@ const MedicalRecCard = (props) => {
 
   return (
     <div className="recordCard">
-      <div>{record.medicalRecordId}</div>
-      <div>{record.uploadedBy}</div>
-      <div>{record.dateUploaded}</div>
+      <div className="idTag">{record.medicalRecordId}</div>
+      <hr />
       <div>{record.medicalRecordData}</div>
-      <div>{record.consentTo}</div>
+      <hr />
+      <div className="signatureTag">
+        By {record.uploadedBy} on {record.dateUploaded}
+      </div>
+      <br />
+      <div>
+        Access List:
+        {record.consentTo.map((item, key) => {
+          return <p>{item}</p>;
+        })}
+      </div>
     </div>
   );
 };
