@@ -6,7 +6,7 @@ const DoctorA = (props) => {
 
   return (
     <div className="container">
-      <span className="participantName">Doctor A</span>
+      <span className="ribbon">Doctor A</span>
     </div>
   );
 };

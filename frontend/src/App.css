@@ -4,7 +4,6 @@ body {
   align-items: center;
   justify-content: center;
   font-size: calc(7px + 2vmin);
-  /* color: white; */
   box-sizing: border-box;
 }
 
@@ -15,7 +14,7 @@ body {
 .participantsBar {
   float: left;
   min-height: 100vh;
-  width: 15%;
+  width: 20%;
   border: white 1px solid;
   border-radius: 5px;
 }
@@ -23,7 +22,7 @@ body {
 .mainPanel {
   float: left;
   min-height: 100vh;
-  width: 85%;
+  width: 80%;
   padding: 3%;
 }
 
@@ -75,7 +74,7 @@ a {
   border: 1px solid white;
   padding: 10px;
   margin: 10px;
-  width: 30%;
+  width: 40%;
   height: 450px;
   float: left;
   border-radius: 10px;
@@ -95,4 +94,55 @@ a {
 button,
 input {
   border-radius: 5px;
+}
+
+/* ribbon  */
+.ribbon {
+  text-decoration: none;
+  background-color: rgb(46, 139, 87, 1);
+  padding: 0.5em 0;
+  font-size: 1.5em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(30%) translateY(0%) rotate(45deg);
+  transform-origin: top left;
+}
+
+.ribbon::before,
+.ribbon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  margin: 0 -1px;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(46, 139, 87, 1);
+}
+
+.ribbon::before {
+  right: 100%;
+}
+
+.ribbon::after {
+  left: 100%;
+}
+
+/* Tags & Badges*/
+.idTag {
+  background-color: #fce205;
+  width: 50%;
+  border-radius: 30px 0px 0px 30px;
+  text-align-last: center;
+  font-size: 0.7em;
+  float: right;
+}
+
+.signatureTag {
+  float: right;
+  background-color: darkcyan;
+  text-align-last: center;
+  font-size: 0.7em;
+  width: 60%;
+  border-radius: 10px 10px 10px 10px;
 }
