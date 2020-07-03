@@ -15,6 +15,7 @@
 
 import React, { useState, useEffect } from "react";
 import AccessItem from "./AccessItem";
+import NewConsent from "./NewConsent";
 
 const MedicalRecCard = (props) => {
   const record = props.record;
@@ -33,9 +34,11 @@ const MedicalRecCard = (props) => {
         By {record.uploadedBy} on {record.dateUploaded}
       </div>
       <br />
+      <NewConsent medRecId={record.medicalRecordId} />
+      <hr />
       <div>
-        Access List: {consentList.lenght}
-        {consentList.lenght != 0 ? (
+        Access List: {consentList.length}
+        {consentList.length != 0 ? (
           record.consentTo.map((item, key) => {
             return <AccessItem name={item} />;
           })
