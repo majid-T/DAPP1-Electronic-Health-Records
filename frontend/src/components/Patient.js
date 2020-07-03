@@ -43,7 +43,6 @@ const Patient = (props) => {
     <div>
       <div className="container">
         <span className="ribbon">{props.patientName}</span>
-
         {loading ? (
           <p>Loading...</p>
         ) : (

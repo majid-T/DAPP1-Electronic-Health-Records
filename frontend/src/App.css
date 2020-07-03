@@ -5,6 +5,7 @@ body {
   justify-content: center;
   font-size: calc(7px + 2vmin);
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 * {
