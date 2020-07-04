@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MedicalRecCard from "./MedicalRecCard";
 
 const Patient = (props) => {
+  const identity = "patient";
   const [loading, setLoading] = useState(false);
   const [medRecords, setMedRecords] = useState([
     {
@@ -47,7 +48,7 @@ const Patient = (props) => {
           <p>Loading...</p>
         ) : (
           medRecords.map((rec, key) => {
-            return <MedicalRecCard record={rec} />;
+            return <MedicalRecCard record={rec} identity={identity} />;
           })
         )}
       </div>

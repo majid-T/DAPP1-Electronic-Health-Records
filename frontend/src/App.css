@@ -152,3 +152,19 @@ input {
   width: 60%;
   border-radius: 10px 10px 10px 10px;
 }
+
+.height40 {
+  min-height: 40%;
+}
+
+.height30 {
+  min-height: 30%;
+}
+
+.height20 {
+  min-height: 20%;
+}
+
+.height10 {
+  min-height: 10%;
+}
