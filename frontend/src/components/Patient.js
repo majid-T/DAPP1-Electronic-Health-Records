@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MedicalRecCard from "./MedicalRecCard";
+import MedicalRecCard from "./patientComponents/MedicalRecCard";
 
 const Patient = (props) => {
   const identity = "patient";

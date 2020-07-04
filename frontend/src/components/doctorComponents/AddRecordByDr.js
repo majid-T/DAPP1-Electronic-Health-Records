@@ -23,6 +23,11 @@ const AddRecordByDr = (props) => {
           <legend>Add a medical report for patient:</legend>
           <input
             type="string"
+            placeholder="Patient Id"
+            onChange={(event) => setPatientId(event.target.value)}
+          ></input>
+          <input
+            type="string"
             placeholder="Medical Record Id"
             onChange={(event) => setMedicalRecordId(event.target.value)}
           ></input>
