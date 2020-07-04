@@ -7,6 +7,7 @@ var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var medicalRouter = require("./routes/medical");
+const PORT = 3900;
 var app = express();
 
 // view engine setup
@@ -38,4 +39,5 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 module.exports = app;

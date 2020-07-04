@@ -3,7 +3,7 @@ const router = express.Router();
 const {
   FileSystemWallet,
   Gateway,
-  X509WalletMixin
+  X509WalletMixin,
 } = require("fabric-network");
 const path = require("path");
 
@@ -12,12 +12,12 @@ const walletPath = path.join(process.cwd(), "wallet");
 const wallet = new FileSystemWallet(walletPath);
 
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+router.get("/", async function (req, res, next) {
   res.send("respond with a resource");
 });
 
-router.post("/enrollPatient", function (req, res, next) {
-  let {userId} = req.body;
+router.post("/enrollPatient", async function (req, res, next) {
+  let { userId } = req.body;
 
   try {
     console.log(`Wallet path: ${walletPath}`);
@@ -51,14 +51,14 @@ router.post("/enrollPatient", function (req, res, next) {
         affiliation: "org1.department1",
         enrollmentID: userId,
         role: "patient",
-        attrs: [{ name: "role", value: "patient", ecert: true }]
+        attrs: [{ name: "role", value: "patient", ecert: true }],
       },
       adminIdentity
     );
 
     const enrollment = await ca.enroll({
       enrollmentID: userId,
-      enrollmentSecret: secret
+      enrollmentSecret: secret,
     });
 
     const userIdentity = X509WalletMixin.createIdentity(
@@ -73,14 +73,13 @@ router.post("/enrollPatient", function (req, res, next) {
     );
     res.json({
       result: "ok",
-      message: `Successfully registered and enrolled admin user ${userId} and imported it into the wallet`
+      message: `Successfully registered and enrolled admin user ${userId} and imported it into the wallet`,
     });
-    
   } catch (error) {
     console.error(`Failed to register user "user2": ${error}`);
     res.json({
       result: "failed",
-      message: `Failed to register user ${userId}: ${error}`
+      message: `Failed to register user ${userId}: ${error}`,
     });
   }
 });
