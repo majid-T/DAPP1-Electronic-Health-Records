@@ -168,3 +168,9 @@ input {
 .height10 {
   min-height: 10%;
 }
+
+.medicalDatainput {
+  display: block;
+  min-width: 90%;
+  min-height: 100px;
+}

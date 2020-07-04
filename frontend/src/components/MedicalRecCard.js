@@ -1,18 +1,3 @@
-// [
-//   {
-//     medicalRecordId: "String some Id",
-//     uploadedBy: "String uploader Id",
-//     dateUploaded: "String ISO Date",
-//     medicalRecordData: "String anything",
-//     consentTo: [
-//       "String some Id or some public Key",
-//       "String some Id or some public Key",
-//       "String some Id or some public Key",
-//       "String some Id or some public Key",
-//     ],
-//   },
-// ];
-
 import React, { useState, useEffect } from "react";
 import AccessItem from "./AccessItem";
 import NewConsent from "./NewConsent";
