@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 
 const RecordDoctorView = (props) => {
   const record = props.record;
-  const consentList = record.consentTo;
 
   const [loading, setLoading] = useState(false);
   useEffect(() => {}, [loading]);
