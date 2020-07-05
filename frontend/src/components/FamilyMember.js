@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import RequestForPatientData from "./doctorComponents/RequestForPatientData";
-import RecordDoctorView from "./doctorComponents/RecrodDoctorView";
+import RequestForPatientData from "./RequestForPatientData";
+import RecordDoctorView from "./RecrodView";
 
 const FamilyMember = (props) => {
   const identity = "family";
