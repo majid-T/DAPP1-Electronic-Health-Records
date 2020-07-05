@@ -6,7 +6,7 @@ const FamilyMember = (props) => {
 
   return (
     <div className="container">
-      <span className="ribbon">Family Member</span>
+      <span className="ribbon">Family</span>
     </div>
   );
 };

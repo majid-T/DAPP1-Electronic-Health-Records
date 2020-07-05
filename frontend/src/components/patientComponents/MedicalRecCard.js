@@ -11,7 +11,7 @@ const MedicalRecCard = (props) => {
   useEffect(() => {}, [loading]);
 
   return (
-    <div className="recordCard">
+    <div className="recordCard cardFullHeight">
       <div className="idTag">{record.medicalRecordId}</div>
       <hr />
       <div className="height40">

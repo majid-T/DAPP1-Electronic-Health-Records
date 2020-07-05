@@ -76,11 +76,14 @@ a {
   padding: 10px;
   margin: 10px;
   width: 40%;
-  height: 450px;
   float: left;
   border-radius: 10px;
   background-color: rgb(46, 139, 87, 0.5);
   font-size: 0.9em;
+}
+
+.cardFullHeight {
+  height: 450px;
 }
 
 .recordCard:hover {
