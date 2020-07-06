@@ -6,6 +6,7 @@ const MedicalRecCard = (props) => {
   const identity = props.identity;
   const record = props.record;
   const consentList = record.consentTo;
+  const apiUrl = props.apiUrl;
 
   const [loading, setLoading] = useState(false);
   useEffect(() => {}, [loading]);
@@ -24,15 +25,24 @@ const MedicalRecCard = (props) => {
       <br />
       <NewConsent
         className="height20"
-        medRecId={record.medicalRecordId}
+        medicalRecordId={record.medicalRecordId}
         identity={identity}
+        apiUrl={apiUrl}
       />
       <hr />
       <div>
         Access List: {consentList.length}
-        {consentList.length != 0 ? (
+        {consentList.length !== 0 ? (
           record.consentTo.map((item, key) => {
-            return <AccessItem name={item} identity={identity} />;
+            return (
+              <AccessItem
+                key={key}
+                name={item}
+                identity={identity}
+                apiUrl={apiUrl}
+                medicalRecordId={record.medicalRecordId}
+              />
+            );
           })
         ) : (
           <p>No consent is given for this record</p>
