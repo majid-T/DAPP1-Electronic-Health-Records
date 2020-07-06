@@ -3,42 +3,27 @@ import MedicalRecCard from "./patientComponents/MedicalRecCard";
 
 const Patient = (props) => {
   const identity = "patient";
+  const apiUrl = props.apiUrl;
   const [loading, setLoading] = useState(false);
-  const [medRecords, setMedRecords] = useState([
-    {
-      medicalRecordId: "MA-1001",
-      uploadedBy: "Doctor A",
-      dateUploaded: "01/01/01",
-      medicalRecordData:
-        "Deserunt adipisicing labore ut incididunt.Exercitation eu nostrud ad cupidatat deserunt in excepteur sint proident laboris cupidatat.",
-      consentTo: ["DoctorA"],
-    },
-    {
-      medicalRecordId: "MA-1002",
-      uploadedBy: "Doctor A",
-      dateUploaded: "01/01/01",
-      medicalRecordData:
-        "Deserunt adipisicing labore ut incididunt.Exercitation eu nostrud ad cupidatat deserunt in excepteur sint proident laboris cupidatat.",
-      consentTo: [],
-    },
-    {
-      medicalRecordId: "MA-1003",
-      uploadedBy: "Doctor B",
-      dateUploaded: "01/01/01",
-      medicalRecordData:
-        "Deserunt adipisicing labore ut incididunt.Exercitation eu nostrud ad cupidatat deserunt in excepteur sint proident laboris cupidatat.",
-      consentTo: ["DoctorB", "DoctorA"],
-    },
-    {
-      medicalRecordId: "MA-1004",
-      uploadedBy: "Doctor B",
-      dateUploaded: "01/01/01",
-      medicalRecordData:
-        "Exercitation eu nostrud ad cupidatat deserunt in excepteur sint proident laboris cupidatat.",
-      consentTo: ["DoctorB", "DoctorA"],
-    },
-  ]);
-  useEffect(() => {}, [loading]);
+  const [medRecords, setMedRecords] = useState([]);
+
+  const loadPatientRecords = () => {
+    setLoading(true);
+
+    //TODO modify chaincode to send all record if all recived as medicalRecordId
+    fetch(
+      `${apiUrl}get-medical-record/?name=${identity}&recId=all&userId=${identity}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setMedRecords(data.data);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    loadPatientRecords();
+  }, []);
 
   return (
     <div>
@@ -48,7 +33,13 @@ const Patient = (props) => {
           <p>Loading...</p>
         ) : (
           medRecords.map((rec, key) => {
-            return <MedicalRecCard record={rec} identity={identity} />;
+            return (
+              <MedicalRecCard
+                key={rec.medicalRecordId}
+                record={rec}
+                identity={identity}
+              />
+            );
           })
         )}
       </div>
