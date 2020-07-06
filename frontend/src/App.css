@@ -5,6 +5,10 @@ body {
   justify-content: center;
   font-size: calc(7px + 2vmin);
   box-sizing: border-box;
+<<<<<<< HEAD
+=======
+  overflow-x: hidden;
+>>>>>>> d0ee318b33e78b97860a05ae03e73d8423e96cb3
 }
 
 * {
@@ -75,13 +79,23 @@ a {
   padding: 10px;
   margin: 10px;
   width: 40%;
+<<<<<<< HEAD
   height: 450px;
+=======
+>>>>>>> d0ee318b33e78b97860a05ae03e73d8423e96cb3
   float: left;
   border-radius: 10px;
   background-color: rgb(46, 139, 87, 0.5);
   font-size: 0.9em;
 }
 
+<<<<<<< HEAD
+=======
+.cardFullHeight {
+  height: 450px;
+}
+
+>>>>>>> d0ee318b33e78b97860a05ae03e73d8423e96cb3
 .recordCard:hover {
   scale: 100%;
   background-color: rgba(46, 139, 86, 1);
@@ -151,3 +165,30 @@ input {
   width: 60%;
   border-radius: 10px 10px 10px 10px;
 }
+<<<<<<< HEAD
+=======
+
+.height40 {
+  min-height: 40%;
+}
+
+.height30 {
+  min-height: 30%;
+}
+
+.height20 {
+  min-height: 20%;
+}
+
+.height10 {
+  min-height: 10%;
+}
+
+.medicalDatainput {
+  margin-top: 5px;
+  display: block;
+  min-width: 95%;
+  min-height: 100px;
+  resize: none;
+}
+>>>>>>> d0ee318b33e78b97860a05ae03e73d8423e96cb3

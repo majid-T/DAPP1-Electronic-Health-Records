@@ -12,6 +12,10 @@ function App() {
   const drA_Name = "Doctor A";
   const drb_Name = "Doctor B";
   const fmlyMemName = "Family Member for Patient A";
+<<<<<<< HEAD
+=======
+  const API_URL = "http://localhost:1000/";
+>>>>>>> d0ee318b33e78b97860a05ae03e73d8423e96cb3
 
   return (
     <BrowserRouter>
@@ -20,6 +24,7 @@ function App() {
         <Switch>
           <Route
             path="/Patient"
+<<<<<<< HEAD
             render={(props) => <Patient {...props} patientName={patientName} />}
           />
           <Route
@@ -29,11 +34,36 @@ function App() {
           <Route
             path="/DoctorB"
             render={(props) => <DoctorB {...props} drName={drb_Name} />}
+=======
+            render={(props) => (
+              <Patient {...props} patientName={patientName} apiUrl={API_URL} />
+            )}
+          />
+          <Route
+            path="/DoctorA"
+            render={(props) => (
+              <DoctorA {...props} drName={drA_Name} apiUrl={API_URL} />
+            )}
+          />
+          <Route
+            path="/DoctorB"
+            render={(props) => (
+              <DoctorB {...props} drName={drb_Name} apiUrl={API_URL} />
+            )}
+>>>>>>> d0ee318b33e78b97860a05ae03e73d8423e96cb3
           />
           <Route
             path="/FamilyMember"
             render={(props) => (
+<<<<<<< HEAD
               <FamilyMember {...props} fmlyMemberName={fmlyMemName} />
+=======
+              <FamilyMember
+                {...props}
+                fmlyMemberName={fmlyMemName}
+                apiUrl={API_URL}
+              />
+>>>>>>> d0ee318b33e78b97860a05ae03e73d8423e96cb3
             )}
           />
         </Switch>
