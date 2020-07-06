@@ -210,8 +210,13 @@ class Medical extends Contract {
         }
         //converting into string
         const record = JSON.parse(recordAsBytes.toString());
-        const medicalRecord = record.medicalRecord[medicalRecordId];
-        return JSON.stringify(medicalRecord);
+        if (medicalRecordId === "all") {
+            const medicalRecord = record.medicalRecord;
+            return JSON.stringify(medicalRecord);
+        } else {
+            const medicalRecord = record.medicalRecord[medicalRecordId];
+            return JSON.stringify(medicalRecord);
+        }
     }
 }
 
