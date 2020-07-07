@@ -35,7 +35,7 @@ const RequestForPatientData = (props) => {
   useEffect(() => {}, [loading]);
 
   const requestPatientRecords = () => {
-    alert(`Requesting ${patientID} records from identity ${identity}`);
+    // alert(`Requesting ${patientID} records from identity ${identity}`);
     props.setPatientRecords(dummyRecords);
   };
 

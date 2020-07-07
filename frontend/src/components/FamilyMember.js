@@ -18,7 +18,7 @@ const FamilyMember = (props) => {
       />
       {patientRecords.length > 0 ? (
         patientRecords.map((rec, key) => {
-          return <RecordDoctorView record={rec} />;
+          return <RecordDoctorView key={key} record={rec} />;
         })
       ) : (
         <p>There are no records for now</p>
