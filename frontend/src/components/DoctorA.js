@@ -3,24 +3,24 @@ import RequestForPatientData from "./RequestForPatientData";
 import RecordDoctorView from "./RecrodView";
 import AddRecordByDr from "./doctorComponents/AddRecordByDr";
 const DoctorA = (props) => {
+  const apiUrl = props.apiUrl;
   const identity = "doctorA";
   const [loading, setLoading] = useState(false);
-  const [patientRecords, setPatientRecords] = useState([]);
+  const [patientRecord, setPatientRecord] = useState(null);
 
   useEffect(() => {}, [loading]);
 
   return (
     <div className="container">
       <span className="ribbon">Doctor A</span>
-      <AddRecordByDr identity={identity} />
+      <AddRecordByDr identity={identity} apiUrl={apiUrl} />
       <RequestForPatientData
         identity={identity}
-        setPatientRecords={setPatientRecords}
+        setPatientRecord={setPatientRecord}
+        apiUrl={apiUrl}
       />
-      {patientRecords.length > 0 ? (
-        patientRecords.map((rec, key) => {
-          return <RecordDoctorView record={rec} />;
-        })
+      {patientRecord != null ? (
+        <RecordDoctorView record={patientRecord} />
       ) : (
         <p>There are no records for now</p>
       )}

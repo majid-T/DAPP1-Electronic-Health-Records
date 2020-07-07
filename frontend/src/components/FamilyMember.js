@@ -3,6 +3,7 @@ import RequestForPatientData from "./RequestForPatientData";
 import RecordDoctorView from "./RecrodView";
 
 const FamilyMember = (props) => {
+  const apiUrl = props.apiUrl;
   const identity = "family";
   const [loading, setLoading] = useState(false);
   const [patientRecords, setPatientRecords] = useState([]);
@@ -15,6 +16,7 @@ const FamilyMember = (props) => {
       <RequestForPatientData
         identity={identity}
         setPatientRecords={setPatientRecords}
+        apiUrl={apiUrl}
       />
       {patientRecords.length > 0 ? (
         patientRecords.map((rec, key) => {

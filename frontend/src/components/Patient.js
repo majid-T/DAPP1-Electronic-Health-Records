@@ -10,7 +10,6 @@ const Patient = (props) => {
   const loadPatientRecords = () => {
     setLoading(true);
 
-    //TODO modify chaincode to send all record if all recived as medicalRecordId
     fetch(
       `${apiUrl}get-medical-record/?name=${identity}&recId=all&userId=${identity}`
     )
