@@ -24,7 +24,7 @@ router.post("/register-user", async function (req, res, next) {
     if (!userExists) {
       console.log(`An identity for the user  does not exist in the wallet`);
       res.json({
-        result: "failed",
+        status: "failed",
         message: `An identity for the user ${adminId} does not exist in the wallet`,
       });
       return;
@@ -61,7 +61,7 @@ router.post("/register-user", async function (req, res, next) {
   } catch (error) {
     res.json({
       status: "failed",
-      message: `Failed to submit transaction: ${error}`,
+      message: `Failed to create a user ${error}`,
     });
   }
 });
