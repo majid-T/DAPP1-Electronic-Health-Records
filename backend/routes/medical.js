@@ -7,6 +7,7 @@ const { truncateSync } = require("fs");
 const adminId = "admin";
 
 // Create a new file system based wallet for managing identities.
+// Majid NOTE: Below path does not exist yet
 const ccpPath = path.resolve(__dirname, "..", "config", "connection-org1.json");
 const walletPath = path.join(process.cwd(), "wallet");
 const wallet = new FileSystemWallet(walletPath);
@@ -75,7 +76,7 @@ router.post("/add-record", async function (req, res, next) {
     if (!userExists) {
       console.log(`An identity for the user  does not exist in the wallet`);
       res.json({
-        result: "failed",
+        status: "failed",
         message: `An identity for the user ${adminId} does not exist in the wallet`,
       });
       return;
@@ -109,7 +110,7 @@ router.post("/add-record", async function (req, res, next) {
     res.json({
       status: "success",
       message: `medical record updated successfully`,
-      medicalRecordId: result.medicalRecordId,
+      data: result.medicalRecordId,
     });
   } catch (error) {
     res.json({
@@ -129,7 +130,7 @@ router.post("/modify-consent", async function (req, res, next) {
     if (!userExists) {
       console.log(`An identity for the user  does not exist in the wallet`);
       res.json({
-        result: "failed",
+        status: "failed",
         message: `An identity for the user ${adminId} does not exist in the wallet`,
       });
       return;
@@ -164,12 +165,12 @@ router.post("/modify-consent", async function (req, res, next) {
     await gateway.disconnect();
     res.json({
       status: "success",
-      message: `medical record updated successfully`,
+      message: `Medical record consent updated successfully`,
     });
   } catch (error) {
     res.json({
       status: "failed",
-      message: `Failed to submit transaction: ${error}`,
+      message: `Failed to modify consent: ${error}`,
     });
   }
 });
@@ -184,7 +185,7 @@ router.get("/get-medical-record", async function (req, res, next) {
     if (!userExists) {
       console.log(`An identity for the user  does not exist in the wallet`);
       res.json({
-        result: "failed",
+        status: "failed",
         message: `An identity for the user ${adminId} does not exist in the wallet`,
       });
       return;
@@ -217,13 +218,13 @@ router.get("/get-medical-record", async function (req, res, next) {
     await gateway.disconnect();
     res.json({
       status: "success",
-      message: `medical record updated successfully`,
+      message: `Medical record query success`,
       data: result.toString(),
     });
   } catch (error) {
     res.json({
       status: "failed",
-      message: `Failed to submit transaction: ${error}`,
+      message: `Failed to get medical record: ${error}`,
     });
   }
 });
@@ -238,7 +239,7 @@ router.delete("/delete-user", async function (req, res, next) {
     if (!userExists) {
       console.log(`An identity for the user  does not exist in the wallet`);
       res.json({
-        result: "failed",
+        status: "failed",
         message: `An identity for the user ${adminId} does not exist in the wallet`,
       });
       return;
