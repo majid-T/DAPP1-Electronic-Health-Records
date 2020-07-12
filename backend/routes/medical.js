@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Gateway, FileSystemWallet, Wallets } = require("fabric-network");
 const path = require("path");
-const { truncateSync } = require("fs");
+const fs = require("fs");
 
 const adminId = "admin";
 
