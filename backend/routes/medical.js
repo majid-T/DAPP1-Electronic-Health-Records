@@ -17,48 +17,46 @@ router.post("/register-user", async function (req, res, next) {
     const ccpPath = path.resolve(
       __dirname,
       "..",
-      "config",
+      "..",
+      "..",
+      "test-network",
+      "organizations",
+      "peerOrganizations",
+      "org1.example.com",
       "connection-org1.json"
     );
-    console.log("ccpPath", ccpPath);
+    const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
+
+    // Create a new file system based wallet for managing identities.
     const walletPath = path.join(process.cwd(), "wallet");
     const wallet = await Wallets.newFileSystemWallet(walletPath);
-    //const wallet = new FileSystemWallet(walletPath);
-
-    //cosnole the wallet path
     console.log(`Wallet path: ${walletPath}`);
-    console.log("wallet", wallet);
+
     // Check to see if we've already enrolled the user.
-    /*const identity = await wallet.get(adminId);
-  if (!identity) {
-    console.log(`ERROR: Couldnt find the identity ${adminId}`);
-  }*/
-    const userExists = await wallet.get(adminId);
-    console.log("userExists", userExists);
-    if (!userExists) {
-      console.log(`An identity for the user  does not exist in the wallet`);
-      res.json({
-        status: "failed",
-        message: `An identity for the user ${adminId} does not exist in the wallet`,
-      });
+    const identity = await wallet.get("appUser");
+    if (!identity) {
+      console.log(
+        'An identity for the user "appUser" does not exist in the wallet'
+      );
+      console.log("Run the registerUser.js application before retrying");
       return;
     }
+
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
-    console.log("gateway", gateway);
-    // use the identity of user1 from wallet to connect
-    await gateway.connect(ccpPath, {
+    // console.log('gateway', gateway);
+    await gateway.connect(ccp, {
       wallet,
-      identity: adminId,
+      identity: "appUser",
       discovery: { enabled: true, asLocalhost: true },
     });
 
     // Get the network (channel) our contract is deployed to.
     const network = await gateway.getNetwork("mychannel");
-    console.log("network", network);
+    // console.log('network',network);
     // Get the contract from the network.
     const contract = network.getContract("medical");
-    console.log("contract", contract);
+    //  console.log('contract',contract.chaincodeId);
 
     // Evaluate the specified transaction.
 
@@ -81,27 +79,45 @@ router.post("/register-user", async function (req, res, next) {
     });
   }
 });
-//post medical record
+//post medical recordR
 router.post("/add-record", async function (req, res, next) {
   const { patientId, medicalRecord } = req.body;
 
   try {
+    const ccpPath = path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "test-network",
+      "organizations",
+      "peerOrganizations",
+      "org1.example.com",
+      "connection-org1.json"
+    );
+    const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
+
+    // Create a new file system based wallet for managing identities.
+    const walletPath = path.join(process.cwd(), "wallet");
+    const wallet = await Wallets.newFileSystemWallet(walletPath);
+    console.log(`Wallet path: ${walletPath}`);
+
     // Check to see if we've already enrolled the user.
-    const userExists = await wallet.exists(adminId);
-    if (!userExists) {
-      console.log(`An identity for the user  does not exist in the wallet`);
-      res.json({
-        status: "failed",
-        message: `An identity for the user ${adminId} does not exist in the wallet`,
-      });
+    const identity = await wallet.get("appUser");
+    if (!identity) {
+      console.log(
+        'An identity for the user "appUser" does not exist in the wallet'
+      );
+      console.log("Run the registerUser.js application before retrying");
       return;
     }
+
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
-    // use the identity of user1 from wallet to connect
-    await gateway.connect(ccpPath, {
+    // console.log('gateway', gateway);
+    await gateway.connect(ccp, {
       wallet,
-      identity: adminId,
+      identity: "appUser",
       discovery: { enabled: true, asLocalhost: true },
     });
 
@@ -140,22 +156,40 @@ router.post("/modify-consent", async function (req, res, next) {
   const { patientId, medicalRecordId, consentTo, flag } = req.body;
 
   try {
+    const ccpPath = path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "test-network",
+      "organizations",
+      "peerOrganizations",
+      "org1.example.com",
+      "connection-org1.json"
+    );
+    const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
+
+    // Create a new file system based wallet for managing identities.
+    const walletPath = path.join(process.cwd(), "wallet");
+    const wallet = await Wallets.newFileSystemWallet(walletPath);
+    console.log(`Wallet path: ${walletPath}`);
+
     // Check to see if we've already enrolled the user.
-    const userExists = await wallet.exists(adminId);
-    if (!userExists) {
-      console.log(`An identity for the user  does not exist in the wallet`);
-      res.json({
-        status: "failed",
-        message: `An identity for the user ${adminId} does not exist in the wallet`,
-      });
+    const identity = await wallet.get("appUser");
+    if (!identity) {
+      console.log(
+        'An identity for the user "appUser" does not exist in the wallet'
+      );
+      console.log("Run the registerUser.js application before retrying");
       return;
     }
+
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
-    // use the identity of user1 from wallet to connect
-    await gateway.connect(ccpPath, {
+    // console.log('gateway', gateway);
+    await gateway.connect(ccp, {
       wallet,
-      identity: adminId,
+      identity: "appUser",
       discovery: { enabled: true, asLocalhost: true },
     });
 
@@ -195,25 +229,42 @@ router.get("/get-medical-record", async function (req, res, next) {
   const { patientId, medicalRecordId } = req.body;
 
   try {
+    const ccpPath = path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "test-network",
+      "organizations",
+      "peerOrganizations",
+      "org1.example.com",
+      "connection-org1.json"
+    );
+    const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
+
+    // Create a new file system based wallet for managing identities.
+    const walletPath = path.join(process.cwd(), "wallet");
+    const wallet = await Wallets.newFileSystemWallet(walletPath);
+    console.log(`Wallet path: ${walletPath}`);
+
     // Check to see if we've already enrolled the user.
-    const userExists = await wallet.exists(adminId);
-    if (!userExists) {
-      console.log(`An identity for the user  does not exist in the wallet`);
-      res.json({
-        status: "failed",
-        message: `An identity for the user ${adminId} does not exist in the wallet`,
-      });
+    const identity = await wallet.get("appUser");
+    if (!identity) {
+      console.log(
+        'An identity for the user "appUser" does not exist in the wallet'
+      );
+      console.log("Run the registerUser.js application before retrying");
       return;
     }
+
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
-    // use the identity of user1 from wallet to connect
-    await gateway.connect(ccpPath, {
+    // console.log('gateway', gateway);
+    await gateway.connect(ccp, {
       wallet,
-      identity: adminId,
+      identity: "appUser",
       discovery: { enabled: true, asLocalhost: true },
     });
-
     // Get the network (channel) our contract is deployed to.
     const network = await gateway.getNetwork("mychannel");
 
@@ -249,22 +300,40 @@ router.delete("/delete-user", async function (req, res, next) {
   const { patientId } = req.body;
 
   try {
+    const ccpPath = path.resolve(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "test-network",
+      "organizations",
+      "peerOrganizations",
+      "org1.example.com",
+      "connection-org1.json"
+    );
+    const ccp = JSON.parse(fs.readFileSync(ccpPath, "utf8"));
+
+    // Create a new file system based wallet for managing identities.
+    const walletPath = path.join(process.cwd(), "wallet");
+    const wallet = await Wallets.newFileSystemWallet(walletPath);
+    console.log(`Wallet path: ${walletPath}`);
+
     // Check to see if we've already enrolled the user.
-    const userExists = await wallet.exists(adminId);
-    if (!userExists) {
-      console.log(`An identity for the user  does not exist in the wallet`);
-      res.json({
-        status: "failed",
-        message: `An identity for the user ${adminId} does not exist in the wallet`,
-      });
+    const identity = await wallet.get("appUser");
+    if (!identity) {
+      console.log(
+        'An identity for the user "appUser" does not exist in the wallet'
+      );
+      console.log("Run the registerUser.js application before retrying");
       return;
     }
+
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
-    // use the identity of user1 from wallet to connect
-    await gateway.connect(ccpPath, {
+    // console.log('gateway', gateway);
+    await gateway.connect(ccp, {
       wallet,
-      identity: adminId,
+      identity: "appUser",
       discovery: { enabled: true, asLocalhost: true },
     });
 
