@@ -7,11 +7,59 @@ const errResponse = {
   status: "failed",
   message: `Failed to submit request`,
 };
+// Delete Me later - For dev only
+const records = [
+  {
+    medicalRecordId: "1001",
+    uploadedBy: "Doctor A",
+    dateUploaded: "01/01/01",
+    medicalRecordData:
+      "Deserunt adipisicing labore ut incididunt.Exercitation eu nostrud ad cupidatat deserunt in excepteur sint proident laboris cupidatat.",
+    consentTo: ["DoctorA"],
+  },
+  {
+    medicalRecordId: "1002",
+    uploadedBy: "Doctor A",
+    dateUploaded: "01/01/01",
+    medicalRecordData:
+      "Deserunt adipisicing labore ut incididunt.Exercitation eu nostrud ad cupidatat deserunt in excepteur sint proident laboris cupidatat.",
+    consentTo: [],
+  },
+  {
+    medicalRecordId: "1003",
+    uploadedBy: "Doctor B",
+    dateUploaded: "01/01/01",
+    medicalRecordData:
+      "Deserunt adipisicing labore ut incididunt.Exercitation eu nostrud ad cupidatat deserunt in excepteur sint proident laboris cupidatat.",
+    consentTo: ["DoctorB", "DoctorA"],
+  },
+  {
+    medicalRecordId: "1004",
+    uploadedBy: "Doctor B",
+    dateUploaded: "01/01/01",
+    medicalRecordData:
+      "Exercitation eu nostrud ad cupidatat deserunt in excepteur sint proident laboris cupidatat.",
+    consentTo: ["DoctorB", "DoctorA"],
+  },
+];
+
+const patientRecords = { patient: records, patient2: [] };
+//========================
 var app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+//for CORS
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept"
+  );
+  next();
+});
+
 const adminId = "admin";
 
 const getMedicalContract = async () => {
@@ -69,8 +117,8 @@ app.get("/test", async function (req, res, next) {
   }
 });
 
-app.post("/register-user", async function (req, res, next) {
-  const { patientName } = req.body;
+app.get("/register-user", async function (req, res, next) {
+  const { patientName } = req.query;
 
   try {
     //get contract instance
@@ -90,6 +138,7 @@ app.post("/register-user", async function (req, res, next) {
       message: `create patient successful`,
     });
   } catch (error) {
+    console.log(error);
     res.json({
       status: "failed",
       message: `Failed to create a user ${error}`,
@@ -115,14 +164,20 @@ app.post("/modify-consent", async function (req, res, next) {
 });
 
 app.get("/get-medical-record", async function (req, res, next) {
-  const { name, recId, userId } = req.query;
-  console.log(name, recId, userId);
+  const { patientId, recId, userId } = req.query;
+  console.log(patientId, recId, userId);
+  const contract = await getMedicalContract();
 
+  const result = await contract.evaluateTransaction(
+    "getMedicalInfoById",
+    patientId,
+    recId
+  );
   if (recId === "all") {
     res.json({
       status: "success",
       message: `medical record updated successfully`,
-      data: records,
+      data: result,
     });
   } else {
     let result = {};
@@ -160,5 +215,5 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-app.listen(1000);
-console.log("server running on 1000");
+app.listen(3001);
+console.log("server running on 3001");

@@ -11,7 +11,7 @@ const Patient = (props) => {
     setLoading(true);
 
     fetch(
-      `${apiUrl}get-medical-record/?name=${identity}&recId=all&userId=${identity}`
+      `${apiUrl}get-medical-record/?patientId=${identity}&recId=all&userId=${identity}`
     )
       .then((response) => response.json())
       .then((data) => {

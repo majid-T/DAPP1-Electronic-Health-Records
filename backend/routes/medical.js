@@ -207,7 +207,7 @@ router.get("/get-medical-record", async function (req, res, next) {
 
     // Evaluate the specified transaction.
 
-    const result = await contract.submitTransaction(
+    const result = await contract.evaluateTransaction(
       "getMedicalInfoById",
       patientId,
       medicalRecordId
