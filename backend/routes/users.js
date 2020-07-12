@@ -7,10 +7,6 @@ const {
 } = require("fabric-network");
 const path = require("path");
 
-const ccpPath = path.resolve(__dirname, "..", "config", "connection-org1.json");
-const walletPath = path.join(process.cwd(), "wallet");
-const wallet = new FileSystemWallet(walletPath);
-
 /* GET users listing. */
 router.get("/", async function (req, res, next) {
   res.send("respond with a resource");
@@ -20,6 +16,15 @@ router.post("/enrollPatient", async function (req, res, next) {
   let { userId } = req.body;
 
   try {
+    const ccpPath = path.resolve(
+      __dirname,
+      "..",
+      "config",
+      "connection-org1.json"
+    );
+    const walletPath = path.join(process.cwd(), "wallet");
+    const wallet = new FileSystemWallet(walletPath);
+
     console.log(`Wallet path: ${walletPath}`);
 
     const userExists = await wallet.exists(userId);

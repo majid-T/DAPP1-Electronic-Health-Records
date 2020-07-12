@@ -8,15 +8,20 @@ const adminId = "admin";
 
 // Create a new file system based wallet for managing identities.
 // Majid NOTE: Below path does not exist yet
-const ccpPath = path.resolve(__dirname, "..", "config", "connection-org1.json");
-const walletPath = path.join(process.cwd(), "wallet");
-const wallet = new FileSystemWallet(walletPath);
 
 /* post createPatiendRecord */
 router.post("/register-user", async function (req, res, next) {
   const { patientName } = req.body;
 
   try {
+    const ccpPath = path.resolve(
+      __dirname,
+      "..",
+      "config",
+      "connection-org1.json"
+    );
+    const walletPath = path.join(process.cwd(), "wallet");
+    const wallet = new FileSystemWallet(walletPath);
     //cosnole the wallet path
     console.log(`Wallet path: ${walletPath}`);
 
