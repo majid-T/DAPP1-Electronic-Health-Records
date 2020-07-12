@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Gateway, FileSystemWallet } = require("fabric-network");
+const { Gateway, FileSystemWallet, Wallets } = require("fabric-network");
 const path = require("path");
 const { truncateSync } = require("fs");
 
@@ -20,13 +20,21 @@ router.post("/register-user", async function (req, res, next) {
       "config",
       "connection-org1.json"
     );
+    console.log("ccpPath", ccpPath);
     const walletPath = path.join(process.cwd(), "wallet");
-    const wallet = new FileSystemWallet(walletPath);
+    const wallet = await Wallets.newFileSystemWallet(walletPath);
+    //const wallet = new FileSystemWallet(walletPath);
+
     //cosnole the wallet path
     console.log(`Wallet path: ${walletPath}`);
-
+    console.log("wallet", wallet);
     // Check to see if we've already enrolled the user.
-    const userExists = await wallet.exists(adminId);
+    /*const identity = await wallet.get(adminId);
+  if (!identity) {
+    console.log(`ERROR: Couldnt find the identity ${adminId}`);
+  }*/
+    const userExists = await wallet.get(adminId);
+    console.log("userExists", userExists);
     if (!userExists) {
       console.log(`An identity for the user  does not exist in the wallet`);
       res.json({
@@ -37,6 +45,7 @@ router.post("/register-user", async function (req, res, next) {
     }
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
+    console.log("gateway", gateway);
     // use the identity of user1 from wallet to connect
     await gateway.connect(ccpPath, {
       wallet,
@@ -46,9 +55,10 @@ router.post("/register-user", async function (req, res, next) {
 
     // Get the network (channel) our contract is deployed to.
     const network = await gateway.getNetwork("mychannel");
-
+    console.log("network", network);
     // Get the contract from the network.
     const contract = network.getContract("medical");
+    console.log("contract", contract);
 
     // Evaluate the specified transaction.
 
