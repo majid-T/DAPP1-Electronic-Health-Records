@@ -132,11 +132,12 @@ app.get("/register-user", async function (req, res, next) {
     console.log(
       `Transaction has been evaluated, result is: ${result.toString()}`
     );
-    await gateway.disconnect();
     res.json({
       status: "success",
       message: `create patient successful`,
     });
+
+    await gateway.disconnect();
   } catch (error) {
     console.log(error);
     res.json({
