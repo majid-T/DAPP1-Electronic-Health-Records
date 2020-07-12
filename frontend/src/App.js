@@ -12,7 +12,7 @@ function App() {
   const drA_Name = "Doctor A";
   const drb_Name = "Doctor B";
   const fmlyMemName = "Family Member for Patient A";
-  const API_URL = "http://localhost:1000/";
+  const API_URL = "http://35.225.87.109:1000/";
 
   return (
     <BrowserRouter>
