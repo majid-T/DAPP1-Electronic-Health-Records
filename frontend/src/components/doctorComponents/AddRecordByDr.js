@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const AddRecordByDr = (props) => {
   const identity = props.identity;
+  const apiUrl = props.apiUrl;
 
   const [loading, setLoading] = useState(false);
   const [patientID, setPatientId] = useState("");
@@ -11,9 +12,28 @@ const AddRecordByDr = (props) => {
   useEffect(() => {}, [loading]);
 
   const addMedicalRecord = () => {
-    alert(`Adding record for ${patientID} from identity ${identity}`);
-    console.log("medical Record id:", medicalRecordId);
-    console.log("medical Record data:", medicalRecordData);
+    //  patientId, medicalRecord;
+    let medicalRecordObj = {
+      medicalRecordId: medicalRecordId,
+      uploadedBy: identity.name,
+      medicalRecordData: medicalRecordData,
+    };
+    setLoading(true);
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        patientId: patientID,
+        medicalRecordObj: medicalRecordObj,
+      }),
+    };
+
+    fetch(`${apiUrl}add-record/`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => alert(JSON.stringify(data)))
+      .then(setLoading(false));
   };
 
   return (

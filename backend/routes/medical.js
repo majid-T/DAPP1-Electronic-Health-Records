@@ -71,7 +71,7 @@ router.post("/register-user", async function (req, res, next) {
     await gateway.disconnect();
     res.json({
       status: "success",
-      message: `create patient successful`,
+      message: `Create patient successful`,
     });
   } catch (error) {
     res.json({
@@ -80,10 +80,11 @@ router.post("/register-user", async function (req, res, next) {
     });
   }
 });
+
 //post medical recordR
 router.post("/add-record", async function (req, res, next) {
-  const { patientId, medicalRecord } = req.body;
-
+  const { patientId, medicalRecordObj } = req.body;
+  console.log(patientId, medicalRecordObj);
   try {
     const ccpPath = path.resolve(
       __dirname,
@@ -133,7 +134,7 @@ router.post("/add-record", async function (req, res, next) {
     const result = await contract.submitTransaction(
       "writePatientMedicalInfo",
       patientId,
-      medicalRecord
+      medicalRecordObj
     );
     console.log("Result", result);
     // console.log(
