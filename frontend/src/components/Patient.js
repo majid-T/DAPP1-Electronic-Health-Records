@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MedicalRecCard from "./patientComponents/MedicalRecCard";
 
 const Patient = (props) => {
-  const identity = { name: "patient", id: "0" };
+  const identity = { name: "jenny", id: "0" };
   const apiUrl = props.apiUrl;
   const [loading, setLoading] = useState(false);
   const [medRecords, setMedRecords] = useState([]);

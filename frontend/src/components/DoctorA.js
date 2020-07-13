@@ -4,7 +4,7 @@ import RecordDoctorView from "./RecrodView";
 import AddRecordByDr from "./doctorComponents/AddRecordByDr";
 const DoctorA = (props) => {
   const apiUrl = props.apiUrl;
-  const identity = "doctorA";
+  const identity = { name: "doctor A", id: "0" };
   const [loading, setLoading] = useState(false);
   const [patientRecord, setPatientRecord] = useState(null);
 
