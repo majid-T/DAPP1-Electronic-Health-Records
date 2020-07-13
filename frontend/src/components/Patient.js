@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MedicalRecCard from "./patientComponents/MedicalRecCard";
 
 const Patient = (props) => {
-  const identity = { name: "patient", id: "1" };
+  const identity = { name: "patient", id: "0" };
   const apiUrl = props.apiUrl;
   const [loading, setLoading] = useState(false);
   const [medRecords, setMedRecords] = useState([]);
@@ -11,7 +11,7 @@ const Patient = (props) => {
     setLoading(true);
 
     fetch(
-      `${apiUrl}get-medical-record/?patientId=${identity}&recId=all&userId=${identity}`
+      `${apiUrl}get-medical-record/?patientId=${identity.id}&recId=all&userId=${identity.name}`
     )
       .then((response) => response.json())
       .then((data) => {

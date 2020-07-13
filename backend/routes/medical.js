@@ -33,12 +33,12 @@ router.post("/register-user", async function (req, res, next) {
     console.log(`Wallet path: ${walletPath}`);
 
     // Check to see if we've already enrolled the user.
-    const identity = await wallet.get("appUser");
+    const identity = await wallet.get("admin");
     if (!identity) {
       console.log(
-        'An identity for the user "appUser" does not exist in the wallet'
+        'An identity for the user "admin" does not exist in the wallet'
       );
-      console.log("Run the registerUser.js application before retrying");
+      console.log("Run the enrollAdmin.js application before retrying");
       return;
     }
 
@@ -47,7 +47,7 @@ router.post("/register-user", async function (req, res, next) {
     // console.log('gateway', gateway);
     await gateway.connect(ccp, {
       wallet,
-      identity: "appUser",
+      identity: "admin",
       discovery: { enabled: true, asLocalhost: true },
     });
 
@@ -64,9 +64,10 @@ router.post("/register-user", async function (req, res, next) {
       "createPatientRecord",
       patientName
     );
-    console.log(
-      `Transaction has been evaluated, result is: ${result.toString()}`
-    );
+    console.log("Result", result);
+    // console.log(
+    //   `Transaction has been evaluated, result is: ${result.toString()}`
+    // );
     await gateway.disconnect();
     res.json({
       status: "success",
@@ -103,12 +104,12 @@ router.post("/add-record", async function (req, res, next) {
     console.log(`Wallet path: ${walletPath}`);
 
     // Check to see if we've already enrolled the user.
-    const identity = await wallet.get("appUser");
+    const identity = await wallet.get("admin");
     if (!identity) {
       console.log(
-        'An identity for the user "appUser" does not exist in the wallet'
+        'An identity for the user "admin" does not exist in the wallet'
       );
-      console.log("Run the registerUser.js application before retrying");
+      console.log("Run the enrollAdmin.js application before retrying");
       return;
     }
 
@@ -117,7 +118,7 @@ router.post("/add-record", async function (req, res, next) {
     // console.log('gateway', gateway);
     await gateway.connect(ccp, {
       wallet,
-      identity: "appUser",
+      identity: "admin",
       discovery: { enabled: true, asLocalhost: true },
     });
 
@@ -134,9 +135,10 @@ router.post("/add-record", async function (req, res, next) {
       patientId,
       medicalRecord
     );
-    console.log(
-      `Transaction has been evaluated, result is: ${result.toString()}`
-    );
+    console.log("Result", result);
+    // console.log(
+    //   `Transaction has been evaluated, result is: ${result.toString()}`
+    // );
     await gateway.disconnect();
     res.json({
       status: "success",
@@ -175,12 +177,12 @@ router.post("/modify-consent", async function (req, res, next) {
     console.log(`Wallet path: ${walletPath}`);
 
     // Check to see if we've already enrolled the user.
-    const identity = await wallet.get("appUser");
+    const identity = await wallet.get("admin");
     if (!identity) {
       console.log(
-        'An identity for the user "appUser" does not exist in the wallet'
+        'An identity for the user "admin" does not exist in the wallet'
       );
-      console.log("Run the registerUser.js application before retrying");
+      console.log("Run the enrollAdmin.js application before retrying");
       return;
     }
 
@@ -189,7 +191,7 @@ router.post("/modify-consent", async function (req, res, next) {
     // console.log('gateway', gateway);
     await gateway.connect(ccp, {
       wallet,
-      identity: "appUser",
+      identity: "admin",
       discovery: { enabled: true, asLocalhost: true },
     });
 
@@ -208,9 +210,10 @@ router.post("/modify-consent", async function (req, res, next) {
       consentTo,
       flag
     );
-    console.log(
-      `Transaction has been evaluated, result is: ${result.toString()}`
-    );
+    console.log("Result:", result);
+    // console.log(
+    //   `Transaction has been evaluated, result is: ${result.toString()}`
+    // );
     await gateway.disconnect();
     res.json({
       status: "success",
@@ -248,12 +251,12 @@ router.get("/get-medical-record", async function (req, res, next) {
     console.log(`Wallet path: ${walletPath}`);
 
     // Check to see if we've already enrolled the user.
-    const identity = await wallet.get("appUser");
+    const identity = await wallet.get("admin");
     if (!identity) {
       console.log(
-        'An identity for the user "appUser" does not exist in the wallet'
+        'An identity for the user "admin" does not exist in the wallet'
       );
-      console.log("Run the registerUser.js application before retrying");
+      console.log("Run the enrollAdmin.js application before retrying");
       return;
     }
 
@@ -262,7 +265,7 @@ router.get("/get-medical-record", async function (req, res, next) {
     // console.log('gateway', gateway);
     await gateway.connect(ccp, {
       wallet,
-      identity: "appUser",
+      identity: "admin",
       discovery: { enabled: true, asLocalhost: true },
     });
     // Get the network (channel) our contract is deployed to.
@@ -278,14 +281,16 @@ router.get("/get-medical-record", async function (req, res, next) {
       patientId,
       medicalRecordId
     );
-    console.log(
-      `Transaction has been evaluated, result is: ${result.toString()}`
-    );
+
+    console.log("Result:", result);
+    // console.log(
+    //   `Transaction has been evaluated, result is: ${result.toString()}`
+    // );
     await gateway.disconnect();
     res.json({
       status: "success",
       message: `Medical record query success`,
-      data: result.toString(),
+      data: result,
     });
   } catch (error) {
     res.json({
@@ -319,12 +324,12 @@ router.delete("/delete-user", async function (req, res, next) {
     console.log(`Wallet path: ${walletPath}`);
 
     // Check to see if we've already enrolled the user.
-    const identity = await wallet.get("appUser");
+    const identity = await wallet.get("admin");
     if (!identity) {
       console.log(
-        'An identity for the user "appUser" does not exist in the wallet'
+        'An identity for the user "admin" does not exist in the wallet'
       );
-      console.log("Run the registerUser.js application before retrying");
+      console.log("Run the enrollAdmin.js application before retrying");
       return;
     }
 
@@ -333,7 +338,7 @@ router.delete("/delete-user", async function (req, res, next) {
     // console.log('gateway', gateway);
     await gateway.connect(ccp, {
       wallet,
-      identity: "appUser",
+      identity: "admin",
       discovery: { enabled: true, asLocalhost: true },
     });
 
@@ -346,14 +351,15 @@ router.delete("/delete-user", async function (req, res, next) {
     // Evaluate the specified transaction.
 
     const result = await contract.submitTransaction("deleteUser", patientId);
-    console.log(
-      `Transaction has been evaluated, result is: ${result.toString()}`
-    );
+    console.log("Result", result);
+    // console.log(
+    //   `Transaction has been evaluated, result is: ${result.toString()}`
+    // );
     await gateway.disconnect();
     res.json({
       status: "success",
       message: `medical record updated successfully`,
-      data: result.toString(),
+      data: result,
     });
   } catch (error) {
     res.json({
