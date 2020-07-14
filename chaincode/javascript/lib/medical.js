@@ -60,7 +60,7 @@ class Medical extends Contract {
                 medicalRecord: [],
             };
             await ctx.stub.putState(
-                this.patientId,
+                this.patientId + "",
                 Buffer.from(JSON.stringify(record))
             );
             this.patientId = this.patientId + 1;
@@ -174,9 +174,9 @@ class Medical extends Contract {
             _medicalRecordData,
         } = _medicalRecordObj;
 
-        console.log(`Destructed from ${_medicalRecordObj}: \nmedicalRecordId:${medicalRecordId},
-            uploadedBy:${uploadedBy},
-            medicalRecordData:${medicalRecordData}`);
+        console.log(`Destructed from ${_medicalRecordObj}: \nmedicalRecordId:${_medicalRecordId},
+            uploadedBy:${_uploadedBy},
+            medicalRecordData:${_medicalRecordData}`);
 
         //will receive the record in form of bytes
         const recordAsBytes = await ctx.stub.getState(_patientId);

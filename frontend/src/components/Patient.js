@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import MedicalRecCard from "./patientComponents/MedicalRecCard";
+import RegisterUser from "./patientComponents/RegisterUser";
 
 const Patient = (props) => {
-  const identity = { name: "jenny", id: "0" };
+  const identity = { name: "Majid", id: "PA0" };
   const apiUrl = props.apiUrl;
   const [loading, setLoading] = useState(false);
   const [medRecords, setMedRecords] = useState([]);
+  const [showRegister, setShowRegister] = useState(false);
 
   const loadPatientRecords = () => {
     setLoading(true);
@@ -15,7 +17,13 @@ const Patient = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        setMedRecords(data.data);
+        console.log(data);
+        if (data.status === "success") {
+          setMedRecords(data.data);
+        } else {
+          console.log(data.message);
+          setShowRegister(true);
+        }
         setLoading(false);
       });
   };
@@ -28,6 +36,7 @@ const Patient = (props) => {
     <div>
       <div className="container">
         <span className="ribbon">{props.patientName}</span>
+        {showRegister && <RegisterUser identity={identity} apiUrl={apiUrl} />}
         {loading ? (
           <p>Loading...</p>
         ) : (
